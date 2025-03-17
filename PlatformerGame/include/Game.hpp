@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <Player.hpp>
 
 class Game {
 public:
@@ -11,6 +12,7 @@ public:
 
 private:
 	std::unique_ptr<sf::RenderWindow> window;
+	Player player;
 	void processEvents();
 	void update(float deltaTime);
 	void render();
