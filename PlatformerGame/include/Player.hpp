@@ -11,8 +11,9 @@ public:
 	void handleInput();
 
 private:
-	sf::Sprite sprite;
-	sf::Texture texture;
+	//sf::Sprite sprite;
+	//sf::Texture texture;
+	sf::RectangleShape sprite;
 	float speed = 300.f;
 	float rotationSpeed = 200.f;
 };

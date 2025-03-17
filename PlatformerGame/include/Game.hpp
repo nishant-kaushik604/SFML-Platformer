@@ -13,6 +13,7 @@ public:
 private:
 	std::unique_ptr<sf::RenderWindow> window;
 	Player player;
+	sf::RectangleShape testShape; // Add this
 	void processEvents();
 	void update(float deltaTime);
 	void render();

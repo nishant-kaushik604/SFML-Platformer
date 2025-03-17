@@ -34,7 +34,7 @@ void Game::update(float deltaTime) {
 }
 
 void Game::render() {
-	window->clear();
+	window->clear(sf::Color::Black);
 
 	// Rendering will go here
 	player.render(*window);

@@ -17,8 +17,8 @@
 //}
 
 Player::Player() {
-	sprite.setTextureRect(sf::IntRect(0, 0, 50, 50)); // 50x50 square
-	sprite.setColor(sf::Color::Red); // Red for visibility
+	sprite.setSize(sf::Vector2f(50.f, 50.f));
+	sprite.setFillColor(sf::Color::White);
 	sprite.setOrigin(25.f, 25.f);
 	sprite.setPosition(400.f, 300.f);
 }
