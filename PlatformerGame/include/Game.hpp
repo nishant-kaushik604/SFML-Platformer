@@ -3,7 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+
 #include <Player.hpp>
+#include <Asteroid.hpp>
+#include <AsteroidFactory.hpp>
+#include <vector>
 
 class Game {
 public:
@@ -13,7 +17,7 @@ public:
 private:
 	std::unique_ptr<sf::RenderWindow> window;
 	Player player;
-	sf::RectangleShape testShape; // Add this
+	std::vector<std::unique_ptr<Asteroid>> asteroids;
 	void processEvents();
 	void update(float deltaTime);
 	void render();

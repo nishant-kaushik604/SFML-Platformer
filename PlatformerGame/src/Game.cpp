@@ -4,6 +4,7 @@ Game::Game()
 {
 	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "Asteriods");
 	window->setFramerateLimit(60);
+	asteroids = AsteroidFactory::createAsteroids(5, 800.f, 600.f);
 }
 
 void Game::run() {
@@ -31,6 +32,11 @@ void Game::processEvents() {
 void Game::update(float deltaTime) {
 	player.handleInput();
 	player.update(deltaTime);
+
+	for (auto& asteroid : asteroids)
+	{
+		asteroid->update(deltaTime);
+	}
 }
 
 void Game::render() {
@@ -38,6 +44,10 @@ void Game::render() {
 
 	// Rendering will go here
 	player.render(*window);
+	for (auto& asteroid : asteroids)
+	{
+		asteroid->render(*window);
+	}
 
 	window->display();
 }
