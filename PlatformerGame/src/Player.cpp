@@ -22,12 +22,27 @@ Player::Player() {
 
 void Player::update(float deltaTime)
 {
-	// Movement logic will use deltaTime
+	timeSinceLastShot += deltaTime;
+
+	for (auto it = bullets.begin(); it != bullets.end();)
+	{
+		(*it)->update(deltaTime);
+		if ((*it)->isOffScreen(800.f, 600.f)) {
+			it = bullets.erase(it);		// Remove off screen bullets
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 void Player::render(sf::RenderWindow& window)
 {
 	window.draw(sprite);
+	for (const auto& bullet : bullets) {
+		bullet->render(window);
+	}
 }
 
 void Player::handleInput()
@@ -41,6 +56,22 @@ void Player::handleInput()
 		float angle = sprite.getRotation() * 3.14159f / 180.f;
 		sprite.move(std::sin(angle) * speed * 0.016f, -1 * std::cos(angle) * speed * 0.016f);
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && timeSinceLastShot >= shootCooldown)
+	{
+		bullets.push_back(std::make_unique<Bullet>(sprite.getPosition().x, sprite.getPosition().y, sprite.getRotation()));
+		timeSinceLastShot = 0.f;
+	}
+}
+
+sf::FloatRect Player::getBounds() const
+{
+	return sf::FloatRect();
+}
+
+const std::vector<std::unique_ptr<Bullet>>& Player::getBullets() const
+{
+	return bullets;
 }
 
 

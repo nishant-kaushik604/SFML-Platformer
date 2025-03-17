@@ -3,14 +3,14 @@
 
 Bullet::Bullet(float x, float y, float angle)
 {
-	shape.setSize(sf::Vector2f(10.f, 2.f));		// Thin Rectangle
+	shape.setSize(sf::Vector2f(2.f, 10.f));		// Thin Rectangle
 	shape.setFillColor(sf::Color::Yellow);
-	shape.setOrigin(5.f, 1.f);
+	shape.setOrigin(1.f, 5.f);
 	shape.setPosition(x, y);
 	shape.setRotation(angle);
 	float rad = angle * 3.14159f / 180.f;
-	velocity.x = std::cos(rad) * speed;
-	velocity.y = std::sin(rad) * speed;
+	velocity.x = std::sin(rad) * speed;
+	velocity.y = -1 * std::cos(rad) * speed;
 }
 
 void Bullet::update(float deltaTime)
