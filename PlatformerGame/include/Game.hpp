@@ -7,6 +7,8 @@
 #include <Player.hpp>
 #include <Asteroid.hpp>
 #include <AsteroidFactory.hpp>
+#include "ScoreManager.hpp"
+#include "ScoreDisplay.hpp"
 #include <vector>
 
 class Game {
@@ -18,6 +20,8 @@ private:
 	std::unique_ptr<sf::RenderWindow> window;
 	Player player;
 	std::vector<std::unique_ptr<Asteroid>> asteroids;
+	ScoreManager scoreManager;
+	ScoreDisplay scoreDisplay;
 	void processEvents();
 	void update(float deltaTime);
 	void render();
