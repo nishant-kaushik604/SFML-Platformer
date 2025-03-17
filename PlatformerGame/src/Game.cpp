@@ -29,11 +29,15 @@ void Game::processEvents() {
 }
 
 void Game::update(float deltaTime) {
-	// Game logic here
+	player.handleInput();
+	player.update(deltaTime);
 }
 
 void Game::render() {
-	window->clear();
+	window->clear(sf::Color::Black);
+
 	// Rendering will go here
+	player.render(*window);
+
 	window->display();
 }
