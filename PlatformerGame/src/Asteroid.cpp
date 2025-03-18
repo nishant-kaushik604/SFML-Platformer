@@ -14,6 +14,15 @@ Asteroid::Asteroid(float x, float y, float size)
 void Asteroid::update(float deltaTime)
 {
 	shape.move(velocity * deltaTime);
+
+	// wrap around screen
+	sf::Vector2f pos = shape.getPosition();
+	float radius = shape.getRadius();
+	if (pos.x < -radius) pos.x = 800.f + radius;
+	if (pos.x > 800.f + radius) pos.x = -radius;
+	if (pos.y < -radius) pos.y = 600.f + radius;
+	if (pos.y > 600.f + radius) pos.y = -radius;
+	shape.setPosition(pos);
 }
 
 void Asteroid::render(sf::RenderWindow& window)
