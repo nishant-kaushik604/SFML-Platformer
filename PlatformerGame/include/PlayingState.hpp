@@ -5,7 +5,7 @@
 #include "Player.hpp"
 #include "Asteroid.hpp"
 #include "ScoreManager.hpp"
-#include "ScoreDisplay.hpp"
+#include "PlayingUI.hpp"
 #include <vector>
 
 class PlayingState : public GameStateBase {
@@ -20,9 +20,11 @@ private:
     Player player;
     std::vector<std::unique_ptr<Asteroid>> asteroids;
     ScoreManager scoreManager;
-    ScoreDisplay scoreDisplay;
+    PlayingUI ui;
     float spawnTimer = 0.f;
     float spawnInterval = 5.f;
+    int lives = 3;
+    void resetPlayer();
 };
 
 #endif // !PLAYING_STATE_HPP

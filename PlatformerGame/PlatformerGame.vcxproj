@@ -25,6 +25,7 @@
     <ClInclude Include="include\Game.hpp" />
     <ClInclude Include="include\GameOverState.hpp" />
     <ClInclude Include="include\GameState.hpp" />
+    <ClInclude Include="include\PlayingUI.hpp" />
     <ClInclude Include="include\PlayingState.hpp" />
     <ClInclude Include="include\LandingState.hpp" />
     <ClInclude Include="include\Player.hpp" />
@@ -42,6 +43,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayingState.cpp" />
+    <ClCompile Include="src\PlayingUI.cpp" />
     <ClCompile Include="src\ScoreDisplay.cpp" />
     <ClCompile Include="src\ScoreManager.cpp" />
   </ItemGroup>

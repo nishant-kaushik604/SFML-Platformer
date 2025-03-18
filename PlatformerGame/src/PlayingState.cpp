@@ -6,12 +6,16 @@ PlayingState::PlayingState(Game* gamePtr)
 {
 	this->game = gamePtr;
 	asteroids = AsteroidFactory::createAsteroids(5, 800.f, 600.f);
-	scoreManager.addObserver(&scoreDisplay);
+	scoreManager.addObserver(&ui);
+	ui.setLives(lives);
 }
 
 void PlayingState::handleInput(sf::Event& event)
 {
-	
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+	{
+		game->setState(GameState::Landing);
+	}
 }
 
 void PlayingState::update(float deltaTime)
@@ -35,8 +39,15 @@ void PlayingState::update(float deltaTime)
 	for (auto it = asteroids.begin(); it != asteroids.end();) {
 		if (playerBounds.intersects((*it)->getBounds()))
 		{
-			game->setState(GameState::GameOver);
-			return;
+			lives--;
+			ui.setLives(lives);
+			resetPlayer();
+			it = asteroids.erase(it);
+			if (lives < 0) {
+				game->setState(GameState::GameOver);
+				return;
+			}
+			break;
 		}
 		else
 		{
@@ -69,12 +80,17 @@ void PlayingState::render(sf::RenderWindow& window)
 	{
 		asteroid->render(window);
 	}
-	scoreDisplay.render(window);
+	ui.render(window);
 }
 
 int PlayingState::getScore() const
 {
 	return scoreManager.getScore();
+}
+
+void PlayingState::resetPlayer()
+{
+	player = Player();
 }
 
 
