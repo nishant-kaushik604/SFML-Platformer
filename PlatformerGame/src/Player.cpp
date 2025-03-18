@@ -19,15 +19,14 @@ Player::Player() {
 //	sprite.setOrigin(25.f, 25.f);
 //	sprite.setPosition(400.f, 300.f);
 //}
-
-void Player::update(float deltaTime)
+void Player::update(float deltaTime, float windowWidth, float windowHeight)
 {
 	timeSinceLastShot += deltaTime;
 
 	for (auto it = bullets.begin(); it != bullets.end();)
 	{
 		(*it)->update(deltaTime);
-		if ((*it)->isOffScreen(800.f, 600.f)) {
+		if ((*it)->isOffScreen(windowWidth, windowHeight)) {
 			it = bullets.erase(it);		// Remove off screen bullets
 		}
 		else
@@ -35,6 +34,14 @@ void Player::update(float deltaTime)
 			++it;
 		}
 	}
+
+	// Clamp position to screen bounds
+	sf::Vector2f pos = sprite.getPosition();
+	float halfWidth = texture.getSize().x / 2.f;
+	float halfHeight = texture.getSize().y / 2.f;
+	pos.x = std::max(halfWidth, std::min(windowWidth - halfWidth, pos.x));
+	pos.y = std::max(halfHeight, std::min(windowHeight - halfHeight, pos.y));
+	sprite.setPosition(pos);
 }
 
 void Player::render(sf::RenderWindow& window)

@@ -7,7 +7,7 @@
 class Player {
 public:
 	Player();
-	void update(float deltaTime);
+	void update(float deltaTime, float windowWidth, float windowHeight);
 	void render(sf::RenderWindow& window);
 	void handleInput();
 	sf::FloatRect getBounds() const;	// For collision

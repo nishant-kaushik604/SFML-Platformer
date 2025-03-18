@@ -32,7 +32,7 @@ void Game::processEvents() {
 
 void Game::update(float deltaTime) {
 	player.handleInput();
-	player.update(deltaTime);
+	player.update(deltaTime, 800, 600);
 
 	for (auto& asteroid : asteroids)
 	{
