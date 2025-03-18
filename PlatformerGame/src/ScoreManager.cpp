@@ -7,7 +7,7 @@ void ScoreManager::addObserver(ScoreObserver* observer)
 
 void ScoreManager::increaseScore(int points)
 {
-	score + points;
+	score += points;
 	notifyObservers();
 }
 

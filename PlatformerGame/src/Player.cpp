@@ -66,7 +66,7 @@ void Player::handleInput()
 
 sf::FloatRect Player::getBounds() const
 {
-	return sf::FloatRect();
+	return sprite.getGlobalBounds();
 }
 
 const std::vector<std::unique_ptr<Bullet>>& Player::getBullets() const
