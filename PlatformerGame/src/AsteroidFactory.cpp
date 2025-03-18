@@ -15,3 +15,12 @@ std::vector<std::unique_ptr<Asteroid>> AsteroidFactory::createAsteroids(int coun
 
 	return asteroids;
 }
+
+std::unique_ptr<Asteroid> AsteroidFactory::createSingleAsteroid(float windowWidth, float windowHeight)
+{
+	float x = static_cast<float>(rand() % static_cast<int>(windowWidth));
+	float y = static_cast<float>(rand() % static_cast<int>(windowHeight));
+
+	float size = 20.f + (rand() % 20);
+	return std::make_unique<Asteroid>(x, y, size);
+}

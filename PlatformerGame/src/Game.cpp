@@ -33,10 +33,16 @@ void Game::processEvents() {
 void Game::update(float deltaTime) {
 	player.handleInput();
 	player.update(deltaTime, 800, 600);
-
 	for (auto& asteroid : asteroids)
 	{
 		asteroid->update(deltaTime);
+	}
+
+	spawnTimer += deltaTime;
+	if (spawnTimer > spawnInterval)
+	{
+		asteroids.push_back(AsteroidFactory::createSingleAsteroid(800.f, 600.f));
+		spawnTimer = 0.f;
 	}
 
 	// Collision: Player vs Asteroids

@@ -22,6 +22,10 @@ private:
 	std::vector<std::unique_ptr<Asteroid>> asteroids;
 	ScoreManager scoreManager;
 	ScoreDisplay scoreDisplay;
+
+	float spawnTimer = 0.f;
+	float spawnInterval = 5.f;
+
 	void processEvents();
 	void update(float deltaTime);
 	void render();

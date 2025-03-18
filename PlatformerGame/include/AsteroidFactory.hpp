@@ -8,6 +8,8 @@
 class AsteroidFactory {
 public:
 	static std::vector<std::unique_ptr<Asteroid>> createAsteroids(int count, float windowWidth, float windowHeight);
+
+	static std::unique_ptr<Asteroid> createSingleAsteroid(float windowWidth, float windowHeight);
 };
 
 #endif // !ASTEROID_FACTORY_HPP
