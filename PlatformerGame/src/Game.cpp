@@ -1,11 +1,13 @@
 #include "Game.hpp"
+#include "LandingState.hpp"
+#include "PlayingState.hpp"
+#include "GameOverState.hpp"
 
 Game::Game()
 {
 	window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "Asteriods");
 	window->setFramerateLimit(60);
-	asteroids = AsteroidFactory::createAsteroids(5, 800.f, 600.f);
-	scoreManager.addObserver(&scoreDisplay);
+	currentState = std::make_unique<LandingState>(this);
 }
 
 void Game::run() {
@@ -19,6 +21,22 @@ void Game::run() {
 	}
 }
 
+void Game::setState(GameState newState)
+{
+	if (newState == GameState::Landing)
+	{
+		currentState = std::make_unique<LandingState>(this);
+	}
+	else if (newState == GameState::Playing) {
+		currentState = std::make_unique<PlayingState>(this);
+		finalScore = 0;
+	}
+	else if (newState == GameState::GameOver) {
+		finalScore = dynamic_cast<PlayingState*>(currentState.get())->getScore();
+		currentState = std::make_unique<GameOverState>(this, finalScore);
+	}
+}
+
 void Game::processEvents() {
 	sf::Event event;
 	while (window->pollEvent(event))
@@ -27,65 +45,16 @@ void Game::processEvents() {
 		{
 			window->close();
 		}
+		currentState->handleInput(event);
 	}
 }
 
 void Game::update(float deltaTime) {
-	player.handleInput();
-	player.update(deltaTime, 800, 600);
-	for (auto& asteroid : asteroids)
-	{
-		asteroid->update(deltaTime);
-	}
-
-	spawnTimer += deltaTime;
-	if (spawnTimer > spawnInterval)
-	{
-		asteroids.push_back(AsteroidFactory::createSingleAsteroid(800.f, 600.f));
-		spawnTimer = 0.f;
-	}
-
-	// Collision: Player vs Asteroids
-	sf::FloatRect playerBounds = player.getBounds();
-	for (auto it = asteroids.begin(); it != asteroids.end();) {
-		if (playerBounds.intersects((*it)->getBounds()))
-		{
-			window->close();
-			break;
-		}
-		else
-		{
-			++it;
-		}
-	}
-
-	// Collision: Bullets vs Asteroids
-	const auto& bullets = player.getBullets();
-	for (auto bulletIt = bullets.begin(); bulletIt != bullets.end(); ++bulletIt) {
-		for (auto asteroidIt = asteroids.begin(); asteroidIt != asteroids.end();) {
-			if ((*bulletIt)->getBounds().intersects((*asteroidIt)->getBounds()))
-			{
-				asteroidIt = asteroids.erase(asteroidIt);
-				scoreManager.increaseScore(10);
-			}
-			else
-			{
-				++asteroidIt;
-			}
-		}
-	}
+	currentState->update(deltaTime);
 }
 
 void Game::render() {
 	window->clear(sf::Color::Black);
-
-	// Rendering will go here
-	player.render(*window);
-	for (auto& asteroid : asteroids)
-	{
-		asteroid->render(*window);
-	}
-	scoreDisplay.render(*window);
-
+	currentState->render(*window);
 	window->display();
 }

@@ -3,28 +3,25 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "GameState.hpp"
 
-#include <Player.hpp>
-#include <Asteroid.hpp>
-#include <AsteroidFactory.hpp>
-#include "ScoreManager.hpp"
-#include "ScoreDisplay.hpp"
-#include <vector>
+enum class GameState {
+	Landing,
+	Playing,
+	GameOver
+};
+
 
 class Game {
 public:
 	Game();
 	void run();
+	void setState(GameState newState);
 
 private:
 	std::unique_ptr<sf::RenderWindow> window;
-	Player player;
-	std::vector<std::unique_ptr<Asteroid>> asteroids;
-	ScoreManager scoreManager;
-	ScoreDisplay scoreDisplay;
-
-	float spawnTimer = 0.f;
-	float spawnInterval = 5.f;
+	std::unique_ptr<GameStateBase> currentState;
+	int finalScore = 0;
 
 	void processEvents();
 	void update(float deltaTime);

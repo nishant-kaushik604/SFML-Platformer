@@ -23,6 +23,10 @@
     <ClInclude Include="include\AsteroidFactory.hpp" />
     <ClInclude Include="include\Bullet.hpp" />
     <ClInclude Include="include\Game.hpp" />
+    <ClInclude Include="include\GameOverState.hpp" />
+    <ClInclude Include="include\GameState.hpp" />
+    <ClInclude Include="include\PlayingState.hpp" />
+    <ClInclude Include="include\LandingState.hpp" />
     <ClInclude Include="include\Player.hpp" />
     <ClInclude Include="include\ScoreDisplay.hpp" />
     <ClInclude Include="include\ScoreManager.hpp" />
@@ -32,9 +36,12 @@
     <ClCompile Include="src\Asteroid.cpp" />
     <ClCompile Include="src\AsteroidFactory.cpp" />
     <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\GameOverState.cpp" />
+    <ClCompile Include="src\LandingState.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PlayingState.cpp" />
     <ClCompile Include="src\ScoreDisplay.cpp" />
     <ClCompile Include="src\ScoreManager.cpp" />
   </ItemGroup>
